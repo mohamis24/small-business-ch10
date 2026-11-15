@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 10: Human Resources & Diversity | Small Business Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-deep: #060b19;
+      --bg-surface: rgba(15, 23, 42, 0.72);
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-rose: #fb7185;
+      --border-glass: rgba(148, 163, 184, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      color: #f8fafc;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    /* Animated 3D Ambient Background */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 15% 20%, #0f1f44 0%, #060b19 55%, #03060f 100%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(80px);
+      opacity: 0.42;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 42vw;
+      height: 42vw;
+      background: radial-gradient(circle, #2563eb, transparent 70%);
+      top: -12%;
+      left: -8%;
+    }
+
+    .orb-2 {
+      width: 38vw;
+      height: 38vw;
+      background: radial-gradient(circle, #7c3aed, transparent 70%);
+      bottom: -15%;
+      right: -6%;
+      animation-delay: -6s;
+    }
+
+    .orb-3 {
+      width: 28vw;
+      height: 28vw;
+      background: radial-gradient(circle, #0d9488, transparent 70%);
+      top: 42%;
+      left: 52%;
+      animation-delay: -11s;
+    }
+
+    .grid-floor {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+      pointer-events: none;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(4%, 6%, 0) scale(1.08); }
+      100% { transform: translate3d(-3%, -4%, 0) scale(0.96); }
+    }
+
+    /* 3D Stage & Slide Transitions */
+    .stage-3d {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100vh;
+      perspective: 1600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4.25rem 1.25rem 4.75rem;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      max-width: 1220px;
+      max-height: calc(100vh - 9rem);
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, 24px, -140px) rotateX(6deg) scale(0.94);
+      transition:
+        opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(56, 189, 248, 0.35) transparent;
+      padding: 0.5rem;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.35);
+      border-radius: 9999px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0) rotateX(0deg) scale(1);
+    }
+
+    .slide.prev-out {
+      opacity: 0;
+      transform: translate3d(-70px, 0, -120px) rotateY(10deg) scale(0.94);
+    }
+
+    .slide.next-out {
+      opacity: 0;
+      transform: translate3d(70px, 0, -120px) rotateY(-10deg) scale(0.94);
+    }
+
+    /* 3D Tilt Glass Cards */
+    .card-3d {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.72), rgba(15, 23, 42, 0.85));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: 1.25rem;
+      box-shadow:
+        0 20px 45px -15px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      transform-style: preserve-3d;
+      transition: transform 0.18s ease-out, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .card-3d:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow:
+        0 26px 55px -12px rgba(2, 132, 199, 0.25),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .card-3d .depth-1 {
+      transform: translateZ(18px);
+    }
+
+    .card-3d .depth-2 {
+      transform: translateZ(32px);
+    }
+
+    /* Interactive Flip Cards (Slide 14) */
+    .flip-container {
+      perspective: 1200px;
+      height: 230px;
+      cursor: pointer;
+    }
+
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-container.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-front, .flip-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .flip-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(145deg, rgba(14, 116, 144, 0.45), rgba(15, 23, 42, 0.92));
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    /* Isometric Badge */
+    .iso-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #7dd3fc;
+    }
+
+    /* Tab Button Active State */
+    .tab-btn.active {
+      background: linear-gradient(135deg, #2563eb, #0284c7);
+      color: #ffffff;
+      border-color: rgba(125, 211, 252, 0.6);
+      box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.55);
+    }
+
+    /* Topic Avoid Checklist Item */
+    .avoid-item.checked {
+      background: rgba(244, 63, 94, 0.16);
+      border-color: rgba(251, 113, 133, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient 3D Space -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-floor"></div>
+  </div>
+
+  <!-- Top Progress & Header Bar -->
+  <header class="fixed top-0 left-0 right-0 z-30 bg-slate-950/75 backdrop-blur-md border-b border-slate-800/80">
+    <div class="w-full h-1 bg-slate-800">
+      <div id="progressBar" class="h-full bg-gradient-to-r from-sky-400 via-indigo-400 to-emerald-400 transition-all duration-500" style="width: 7.14%"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse shrink-0"></span>
+        <span class="text-xs sm:text-sm font-semibold text-slate-200 truncate">Small Business Management • Ch. 10</span>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="shareBtn" type="button" title="Share Link or Download HTML" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-xs font-semibold text-emerald-300 flex items-center gap-1.5 transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          <span>Share / Download</span>
+        </button>
+        <button id="gridBtn" type="button" title="Slide Overview (G)" class="px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 flex items-center gap-1.5 transition cursor-pointer">
+          <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span class="hidden sm:inline">Slides Grid</span>
+        </button>
+        <div class="px-3 py-1.5 rounded-xl bg-sky-500/15 border border-sky-400/30 text-xs font-bold text-sky-300" id="slideCounter">
+          1 / 14
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main 3D Presentation Viewport -->
+  <main class="stage-3d" id="stage">
+
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <section class="slide active" data-title="Title & Presenters">
+      <div class="card-3d tilt-card p-6 sm:p-10 md:p-12 text-center relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-sky-500/15 blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-indigo-500/15 blur-2xl pointer-events-none"></div>
+
+        <div class="depth-1">
+          <div class="inline-flex flex-wrap items-center justify-center gap-2 mb-5">
+            <span class="iso-badge">Small Business Management • 8th Edition</span>
+            <span class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-500/20 border border-indigo-400/40 text-indigo-300">Chapter Ten</span>
+          </div>
+
+          <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto">
+            How to Obtain and Manage <span class="bg-gradient-to-r from-sky-400 via-blue-300 to-emerald-300 bg-clip-text text-transparent">Human Resources and Diversity</span> in Small Companies
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-400 mt-3">Based on Mary Jane Byrd • McGraw-Hill Education</p>
+        </div>
+
+        <!-- Course & Presenters Showcase -->
+        <div class="depth-2 mt-8 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto text-left">
+          <!-- Course Card -->
+          <div class="rounded-2xl bg-slate-900/80 border border-sky-400/35 p-5 flex flex-col justify-center items-center text-center shadow-lg">
+            <span class="text-xs uppercase tracking-widest text-sky-400 font-semibold mb-1.5">Course Name</span>
+            <div class="text-xl sm:text-2xl font-extrabold text-white tracking-wide">
+              Small Business Management
+            </div>
+          </div>
+
+          <!-- Presenters Card -->
+          <div class="rounded-2xl bg-slate-900/80 border border-emerald-400/35 p-5 flex flex-col justify-center shadow-lg">
+            <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold mb-2.5 text-center md:text-left">Prepared &amp; Presented By</span>
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-3 bg-slate-800/75 px-3.5 py-2 rounded-xl border border-slate-700/80">
+                <span class="w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-400/40 text-sky-300 font-bold text-sm flex items-center justify-center shrink-0">1</span>
+                <span class="font-bold text-white text-sm sm:text-base">Mohammed Waled</span>
+              </div>
+              <div class="flex items-center gap-3 bg-slate-800/75 px-3.5 py-2 rounded-xl border border-slate-700/80">
+                <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold text-sm flex items-center justify-center shrink-0">2</span>
+                <span class="font-bold text-white text-sm sm:text-base">Abdulelah Adel Alrajeh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: LEARNING OBJECTIVES -->
+    <section class="slide" data-title="Learning Objectives">
+      <div class="mb-5 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="iso-badge mb-2">Chapter Roadmap</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Learning Objectives (1 – 7)</h2>
+        </div>
+        <span class="text-xs text-slate-400">Hover cards for 3D depth</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <div class="card-3d tilt-card p-4">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-300 font-extrabold flex items-center justify-center shrink-0">1</span>
+            <p class="text-sm text-slate-200 leading-relaxed">Explain how small business managers <strong>plan human resource needs</strong> and develop sources from which to recruit employees.</p>
+          </div>
+        </div>
+
+        <div class="card-3d tilt-card p-4">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-400/40 text-indigo-300 font-extrabold flex items-center justify-center shrink-0">2</span>
+            <p class="text-sm text-slate-200 leading-relaxed">Name some <strong>methods used for recruiting</strong> human resources, and describe the steps in the <strong>employee selection process</strong>.</p>
+          </div>
+        </div>
+
+        <div class="card-3d tilt-card p-4">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold flex items-center justify-center shrink-0">3</span>
+            <p class="text-sm text-slate-200 leading-relaxed">Explain the <strong>importance of employee development</strong>, and discuss some development methods.</p>
+          </div>
+        </div>
+
+        <div class="card-3d tilt-card p-4">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 font-extrabold flex items-center justify-center shrink-0">4</span>
+            <p class="text-sm text-slate-200 leading-relaxed">Tell how <strong>selection of managers</strong> differs from selection of nonmanagerial employees, and describe methods of <strong>manager development</strong>.</p>
+          </div>
+        </div>
+
+        <div class="card-3d tilt-card p-4">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-400/40 text-rose-300 font-extrabold flex items-center justify-center shrink-0">5</span>
+            <p class="text-sm text-slate-200 leading-relaxed">Discuss the <strong>laws</strong> that affect recruiting, selection, and development.</p>
+          </div>
+        </div>
+
+        <div class="card-3d tilt-card p-4">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-extrabold flex items-center justify-center shrink-0">6</span>
+            <p class="text-sm text-slate-200 leading-relaxed">Describe how to <strong>compensate employees</strong> with money and employee benefits.</p>
+          </div>
+        </div>
+
+        <div class="card-3d tilt-card p-4 sm:col-span-2 lg:col-span-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-400/40 text-purple-300 font-extrabold flex items-center justify-center shrink-0">7</span>
+            <p class="text-sm text-slate-200 leading-relaxed">List some factors influencing <strong>employee health and safety</strong>, and tell how to safeguard employees in small firms.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: STAFFING & PLANNING FOR HR NEEDS -->
+    <section class="slide" data-title="Staffing & HR Planning">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Foundation • Slides 10-4 &amp; 10-5</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Staffing &amp; Planning for Human Resource Needs</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Definition of Staffing -->
+        <div class="card-3d tilt-card p-6 lg:col-span-6 flex flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 text-xs font-bold mb-4">
+              CORE DEFINITION
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">What is Staffing?</h3>
+            <p class="text-slate-200 text-base leading-relaxed">
+              <strong>Staffing</strong> involves planning for, recruiting, selecting, and training and developing employees, as well as compensating them and providing for their health and safety.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-3 gap-2 pt-4 border-t border-slate-700/70 text-center">
+            <div class="p-2.5 rounded-xl bg-slate-800/70 text-xs font-semibold text-sky-300">1. Plan &amp; Recruit</div>
+            <div class="p-2.5 rounded-xl bg-slate-800/70 text-xs font-semibold text-indigo-300">2. Select &amp; Train</div>
+            <div class="p-2.5 rounded-xl bg-slate-800/70 text-xs font-semibold text-emerald-300">3. Compensate &amp; Protect</div>
+          </div>
+        </div>
+
+        <!-- Planning Requirements -->
+        <div class="card-3d tilt-card p-6 lg:col-span-6 flex flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold mb-4">
+              STRATEGIC IMPERATIVE
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-4">Small Businesses Must:</h3>
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-slate-800/75 border border-slate-700/80 flex items-start gap-3.5">
+                <span class="w-8 h-8 rounded-lg bg-sky-500 text-slate-950 font-extrabold flex items-center justify-center shrink-0">1</span>
+                <div>
+                  <h4 class="font-bold text-white text-base">Determine Needed Resources</h4>
+                  <p class="text-sm text-slate-300 mt-1">Determine which human resources are needed to meet operational and growth goals.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-800/75 border border-emerald-500/35 flex items-start gap-3.5">
+                <span class="w-8 h-8 rounded-lg bg-emerald-400 text-slate-950 font-extrabold flex items-center justify-center shrink-0">2</span>
+                <div>
+                  <h4 class="font-bold text-white text-base">Develop Diverse Recruiting Sources</h4>
+                  <p class="text-sm text-slate-300 mt-1">Develop sources from which to recruit future employees, <strong>especially people from diverse ethnic groups</strong>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: DETERMINING TYPES OF EMPLOYEES NEEDED (FIGURE 10.1) -->
+    <section class="slide" data-title="Job Description & Specifications">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Figure 10.1 • Role Architecture</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Determining Types of Employees Needed</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- 1. Identification of Job -->
+        <div class="card-3d tilt-card p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 text-xs font-bold">PART A</span>
+            <span class="text-xs text-slate-400">Baseline Metadata</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Identification of Job</h3>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Establishes the core administrative profile of the role within the small business:
+          </p>
+          <ul class="space-y-2 text-sm text-slate-200">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Job title &amp; department</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Job code</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Salary range</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Assigned supervisor, etc.</li>
+          </ul>
+        </div>
+
+        <!-- 2. Job Description -->
+        <div class="card-3d tilt-card p-5 border-indigo-400/35">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs font-bold">PART B • THE ROLE</span>
+            <span class="text-xs text-indigo-300">Signed by Both</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Job Description</h3>
+          <p class="text-xs text-slate-300 mb-3">Lists duties, responsibilities, working conditions, and organizational relationships:</p>
+          <ul class="space-y-1.5 text-xs sm:text-sm text-slate-200">
+            <li><strong>a.</strong> Physical demands &amp; minimum physical requirements.</li>
+            <li><strong>b.</strong> Working &amp; psychological conditions (relationships with people, money, equipment).</li>
+            <li><strong>c.</strong> Summary of duties and responsibilities.</li>
+            <li><strong>d.</strong> Days and hours of work.</li>
+            <li><strong>e.</strong> Machines, tools, formulas, and equipment used.</li>
+          </ul>
+          <div class="mt-3 p-2.5 rounded-xl bg-indigo-950/60 border border-indigo-400/30 text-xs text-indigo-200">
+            <strong>Key Rule:</strong> Should always be reviewed and signed by both employer and employee to prevent misunderstandings.
+          </div>
+        </div>
+
+        <!-- 3. Job Specifications -->
+        <div class="card-3d tilt-card p-5 border-emerald-400/35">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold">PART C • THE PERSON</span>
+            <span class="text-xs text-emerald-300">Qualifications</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Job Specifications</h3>
+          <p class="text-xs text-slate-300 mb-3">Detailed written statements of work assignments and mental, physical, and personal qualifications:</p>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-200">
+            <li><strong>a.</strong> Educational background, knowledge, skills, techniques, and required experience/special training.</li>
+            <li><strong>b.</strong> Personal characteristics such as <em>sociability, articulateness, or aggressiveness</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: INTERNAL SOURCES OF RECRUITMENT -->
+    <section class="slide" data-title="Internal Sources">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Figure 10.2 • Inside the Organization</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Internal Sources of Recruitment</h2>
+        <p class="text-sm text-slate-300 mt-1">Coordinated centrally by the <strong>Personnel Manager</strong> to utilize existing talent.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Upgrading -->
+        <div class="card-3d tilt-card p-6">
+          <div class="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-300 font-extrabold text-xl mb-4">
+            01
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Upgrading</h3>
+          <p class="text-sm text-slate-200 leading-relaxed">
+            Involves <strong>retraining workers</strong> so they can take on and perform <strong>increasingly complex work</strong> within the business.
+          </p>
+        </div>
+
+        <!-- Transferring -->
+        <div class="card-3d tilt-card p-6">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300 font-extrabold text-xl mb-4">
+            02
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Transferring</h3>
+          <p class="text-sm text-slate-200 leading-relaxed">
+            Moving an employee from <strong>one job to another</strong> within the company, <strong>without necessarily changing title or pay</strong>.
+          </p>
+        </div>
+
+        <!-- Promoting -->
+        <div class="card-3d tilt-card p-6 border-emerald-400/40">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-300 font-extrabold text-xl mb-4">
+            03
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Promoting</h3>
+          <p class="text-sm text-slate-200 leading-relaxed mb-3">
+            Moving an employee to a <strong>higher position</strong>, usually with increased responsibilities, title, and pay.
+          </p>
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-700/70">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 text-xs font-semibold">+ Increases morale</span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 text-xs font-semibold">+ Improves motivation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: EXTERNAL SOURCES OF RECRUITMENT -->
+    <section class="slide" data-title="External Sources">
+      <div class="mb-4">
+        <span class="iso-badge mb-2">Figure 10.2 &amp; Slide 10-12 • Talent Pool</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">External Sources of Recruitment</h2>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-sky-400 font-bold text-xs uppercase mb-1">Walk-In / Mail</div>
+          <p class="text-sm font-semibold text-white">Applications received in person or by mail</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-emerald-400 font-bold text-xs uppercase mb-1">Alumni</div>
+          <p class="text-sm font-semibold text-white">Former employees</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-indigo-400 font-bold text-xs uppercase mb-1">Referrals</div>
+          <p class="text-sm font-semibold text-white">Friends and relatives of present employees</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-amber-400 font-bold text-xs uppercase mb-1">Experience</div>
+          <p class="text-sm font-semibold text-white">Retirees and older workers</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-purple-400 font-bold text-xs uppercase mb-1">Flexible</div>
+          <p class="text-sm font-semibold text-white">Part-time and temporary workers</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-cyan-400 font-bold text-xs uppercase mb-1">Diversity</div>
+          <p class="text-sm font-semibold text-white">Migrants and immigrants</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-teal-400 font-bold text-xs uppercase mb-1">Inclusion</div>
+          <p class="text-sm font-semibold text-white">Workers with disabilities</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center">
+          <div class="text-rose-400 font-bold text-xs uppercase mb-1">Industry</div>
+          <p class="text-sm font-semibold text-white">Competing firms</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center sm:col-span-2">
+          <div class="text-blue-400 font-bold text-xs uppercase mb-1">Education</div>
+          <p class="text-sm font-semibold text-white">Schools and colleges</p>
+        </div>
+        <div class="card-3d tilt-card p-3.5 text-center sm:col-span-1 lg:col-span-2">
+          <div class="text-violet-400 font-bold text-xs uppercase mb-1">Associations</div>
+          <p class="text-sm font-semibold text-white">Labor, social, and professional organizations</p>
+        </div>
+      </div>
+
+      <!-- Leased Manpower Highlight -->
+      <div class="card-3d tilt-card p-4 sm:p-5 border-amber-400/40 bg-gradient-to-r from-amber-500/10 to-slate-900/80">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-xs font-bold uppercase">Special External Option</span>
+            <h3 class="text-lg font-bold text-white mt-1">Leased Manpower</h3>
+            <p class="text-sm text-slate-200 mt-0.5">
+              Refers to employees obtained from an <strong>outside firm that specializes in performing a particular service</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: METHODS USED TO RECRUIT EMPLOYEES (FIGURE 10.3) -->
+    <section class="slide" data-title="Recruiting Methods">
+      <div class="mb-4">
+        <span class="iso-badge mb-2">Figure 10.3 &amp; Slides 10-13 to 10-15</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Methods Used to Recruit Employees</h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-1">
+          <strong>Recruitment:</strong> Reaching out to attract applicants from which to choose one to fill a job vacancy.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- 7 Core Methods (Figure 10.3) -->
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="card-3d tilt-card p-3.5">
+            <h4 class="font-bold text-sky-300 text-sm">1. Networking</h4>
+            <p class="text-xs text-slate-200 mt-1">Establishing and maintaining contacts with key persons in one's own or another organization as informal development or promotion systems.</p>
+          </div>
+          <div class="card-3d tilt-card p-3.5">
+            <h4 class="font-bold text-indigo-300 text-sm">2. Advertising</h4>
+            <p class="text-xs text-slate-200 mt-1">Includes ads in newspapers, <em>Help Wanted</em> signs in windows, radio, and other local media.</p>
+          </div>
+          <div class="card-3d tilt-card p-3.5">
+            <h4 class="font-bold text-emerald-300 text-sm">3. Internet / Website</h4>
+            <p class="text-xs text-slate-200 mt-1">Posting job openings online to reach a wider applicant pool quickly.</p>
+          </div>
+          <div class="card-3d tilt-card p-3.5">
+            <h4 class="font-bold text-amber-300 text-sm">4. Employment Agencies</h4>
+            <p class="text-xs text-slate-200 mt-1">State agencies (in cooperation with U.S. Employment Service) and private agencies charging a fee and doing screening.</p>
+          </div>
+          <div class="card-3d tilt-card p-3.5">
+            <h4 class="font-bold text-rose-300 text-sm">5. Employee Referrals</h4>
+            <p class="text-xs text-slate-200 mt-1">Present employees recommend a friend or acquaintance (while remaining aware of equal employment opportunity guidelines).</p>
+          </div>
+          <div class="card-3d tilt-card p-3.5">
+            <h4 class="font-bold text-cyan-300 text-sm">6. Scouting &amp; 7. Temp Services</h4>
+            <p class="text-xs text-slate-200 mt-1"><strong>Scouting:</strong> Campus recruiting &amp; professional orgs. <strong>Temp services:</strong> Private agencies providing part-time/temporary workers for a fee.</p>
+          </div>
+        </div>
+
+        <!-- Practical Small Business Recruiting Tips (Slide 10-13) -->
+        <div class="lg:col-span-4 card-3d tilt-card p-4 border-emerald-400/35 flex flex-col justify-between">
+          <div>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold">ACTIONABLE TACTICS</span>
+            <h3 class="text-base font-bold text-white mt-2 mb-3">Small Business Recruiting Tips</h3>
+            <ul class="space-y-2 text-xs text-slate-200">
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span>Ask current employees and offer <strong>finding fees</strong>.</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span>Search for <strong>seniors (over 55)</strong>—proven to be dependable employees.</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span>Consider <strong>internships</strong>—most universities can help.</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span>Try <strong>local church bulletins</strong> and community boards.</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span>Ask the right questions—be specific about <strong>job-related talents</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: SELECTION & 3-STEP SELECTION PROCEDURE -->
+    <section class="slide" data-title="Selection Procedure">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Slides 10-16 &amp; 10-17 • Hiring Pipeline</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Selecting the Right Person for the Job</h2>
+        <p class="text-sm text-slate-300 mt-1">
+          <strong>Selection:</strong> Involves choosing the applicant who has the qualifications to perform the job.
+        </p>
+      </div>
+
+      <!-- 3D Stepped Flow -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+        <div class="card-3d tilt-card p-6 border-lime-400/40 relative">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-full bg-lime-500/20 text-lime-300 text-xs font-extrabold">STEP 01</span>
+            <span class="text-xs text-slate-400">Screening</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Gathering Information About the Applicant</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Collecting applications, resumes, reference checks, test results, and conducting structured interviews to verify qualifications.
+          </p>
+        </div>
+
+        <div class="card-3d tilt-card p-6 border-teal-400/40 relative md:translate-y-3">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-extrabold">STEP 02</span>
+            <span class="text-xs text-slate-400">Decision</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Making a Job Offer</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Extending a formal offer to the most qualified candidate, clearly aligning on job description, duties, hours, and compensation.
+          </p>
+        </div>
+
+        <div class="card-3d tilt-card p-6 border-purple-400/40 relative md:translate-y-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-extrabold">STEP 03</span>
+            <span class="text-xs text-slate-400">Onboarding</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Orienting the New Employee</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Introducing the new hire to company policies, workspace, equipment, safety protocols, and team expectations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: GENERAL TOPICS TO AVOID WHEN INTERVIEWING (TABLE 10.1) -->
+    <section class="slide" data-title="Topics to Avoid (Table 10.1)">
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="iso-badge mb-1.5">Table 10.1 • Legal Compliance</span>
+          <h2 class="text-xl sm:text-3xl font-extrabold text-white">10 Topics to Avoid When Interviewing Applicants</h2>
+        </div>
+        <span class="text-xs text-rose-300 bg-rose-500/15 border border-rose-400/30 px-3 py-1 rounded-full">Click items to mark reviewed</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5" id="avoidGrid">
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">1. Children:</strong> Do not ask whether they have children, plan to have children, or have child care.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">2. Age:</strong> Do not ask an applicant's age unless job specific.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">3. Disabilities:</strong> Do not ask whether the candidate has a physical or mental disability that would interfere with the job.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">4. Physical characteristics:</strong> Do not ask for height or weight on an application.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">5. Citizenship:</strong> Do not ask about citizenship (though IRCA requires verifying legal right to work in the U.S.).</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">6. Name:</strong> Do not ask a female candidate for her maiden name.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">7. Lawsuits:</strong> Do not ask whether the candidate has ever filed a suit or claim against a former employer.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">8. Arrest record:</strong> Do not ask applicants about their arrest records.</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">9. Smoking:</strong> Do not ask if they smoke (can lead to legal difficulties over ADA/health care cost fears).</p>
+        </div>
+        <div class="avoid-item card-3d p-3 cursor-pointer transition" onclick="this.classList.toggle('checked')">
+          <p class="text-xs sm:text-sm text-slate-200"><strong class="text-rose-400">10. AIDS and HIV:</strong> Never ask if candidates have AIDS or are HIV-positive (violates ADA &amp; federal/state civil rights laws).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: PREEMPLOYMENT TESTS & IN-DEPTH INTERVIEWS -->
+    <section class="slide" data-title="Preemployment Tests & Interviews">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Slides 10-19 &amp; 10-20 • Candidate Evaluation</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Preemployment Tests &amp; In-Depth Interviews</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Validity -->
+        <div class="card-3d tilt-card p-6 border-sky-400/35">
+          <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 text-xs font-bold">TESTING STANDARD</span>
+          <h3 class="text-xl font-bold text-white mt-3 mb-2">Validity</h3>
+          <p class="text-sm text-slate-200 leading-relaxed">
+            Making sure that the test given <strong>actually relates or corresponds to job performance</strong>.
+          </p>
+        </div>
+
+        <!-- Polygraph -->
+        <div class="card-3d tilt-card p-6 border-rose-400/35">
+          <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 text-xs font-bold">LEGAL RESTRICTION</span>
+          <h3 class="text-xl font-bold text-white mt-3 mb-2">Polygraph</h3>
+          <p class="text-sm text-slate-200 leading-relaxed mb-3">
+            An instrument for simultaneously recording variations in several different physiological variables.
+          </p>
+          <div class="p-3 rounded-xl bg-rose-950/60 border border-rose-400/30 text-xs text-rose-200 font-medium">
+            Congress passed a law <strong>barring private employers</strong> from using polygraph tests.
+          </div>
+        </div>
+
+        <!-- In-depth / Diagnostic Interviews -->
+        <div class="card-3d tilt-card p-6 border-indigo-400/35">
+          <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs font-bold">DEEP ASSESSMENT</span>
+          <h3 class="text-xl font-bold text-white mt-3 mb-2">In-Depth / Diagnostic Interviews</h3>
+          <p class="text-sm text-slate-200 leading-relaxed">
+            Detailed, probing, and penetrating preemployment interviews seeking to determine the <strong>applicant's character and other aspects of personality</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: IMPROVING THE INTERVIEW PROCESS -->
+    <section class="slide" data-title="Improving Interview Process">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Slide 10-21 • Best Practices</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">7 Rules for Improving the Interview Process</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-rose-400">
+          <span class="text-xs font-bold text-rose-400 uppercase">Rule 1 • Avoid</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do not ask the <span class="text-sky-300">obvious</span> questions.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-rose-400">
+          <span class="text-xs font-bold text-rose-400 uppercase">Rule 2 • Avoid</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do not ask <span class="text-rose-300">legally indefensible</span> questions.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-emerald-400">
+          <span class="text-xs font-bold text-emerald-400 uppercase">Rule 3 • Practice</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do ask the right questions, and be sure to know how to <span class="text-emerald-300">evaluate the answers</span>.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-amber-400">
+          <span class="text-xs font-bold text-amber-400 uppercase">Rule 4 • Caution</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do try not to focus too much attention on the <span class="text-amber-300">candidate's self-evaluation</span>.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-amber-400">
+          <span class="text-xs font-bold text-amber-400 uppercase">Rule 5 • Caution</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do not be overly influenced by <span class="text-sky-300">first impressions</span>.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-emerald-400">
+          <span class="text-xs font-bold text-emerald-400 uppercase">Rule 6 • Focus</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do not miss <span class="text-emerald-300">important clues</span>.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-4 border-l-4 border-l-indigo-400 sm:col-span-2 lg:col-span-3">
+          <span class="text-xs font-bold text-indigo-400 uppercase">Rule 7 • Balance</span>
+          <p class="text-sm sm:text-base font-semibold text-white mt-1">Do not rely too much on <span class="text-indigo-300">past credentials</span>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: TRAINING AND DEVELOPING EMPLOYEES -->
+    <section class="slide" data-title="Training & Development Results">
+      <div class="mb-5">
+        <span class="iso-badge mb-2">Slide 10-22 • Value &amp; ROI</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Training and Developing Employees</h2>
+        <p class="text-sm text-slate-300 mt-1">Key organizational and employee outcomes resulting from effective training:</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="card-3d tilt-card p-5">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-300 font-extrabold flex items-center justify-center mb-3">01</div>
+          <h3 class="text-lg font-bold text-white">Increased Productivity</h3>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">Employees perform tasks faster, more accurately, and with greater confidence.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-5">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 font-extrabold flex items-center justify-center mb-3">02</div>
+          <h3 class="text-lg font-bold text-white">Reduced Turnover</h3>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">Well-trained staff stay longer, lowering costly hiring and onboarding cycles.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-5">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold flex items-center justify-center mb-3">03</div>
+          <h3 class="text-lg font-bold text-white">Increased Earnings for Employees</h3>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">Higher skill levels enable greater output and higher earning potential.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-5">
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-300 font-extrabold flex items-center justify-center mb-3">04</div>
+          <h3 class="text-lg font-bold text-white">Decreased Costs Due to Errors</h3>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">Lower waste of materials and reduced damage to equipment caused by mistakes.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-5">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-300 font-extrabold flex items-center justify-center mb-3">05</div>
+          <h3 class="text-lg font-bold text-white">Less Supervision Required</h3>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">Frees up small business owners and managers to focus on strategic priorities.</p>
+        </div>
+
+        <div class="card-3d tilt-card p-5">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-300 font-extrabold flex items-center justify-center mb-3">06</div>
+          <h3 class="text-lg font-bold text-white">Improved Employee Satisfaction</h3>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1">Boosts workplace morale, engagement, and sense of professional growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: WAYS OF TRAINING NONMANAGERIAL EMPLOYEES -->
+    <section class="slide" data-title="Training Nonmanagerial Staff">
+      <div class="mb-4">
+        <span class="iso-badge mb-2">Slides 10-23 to 10-26 • Interactive Explorer</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Ways of Training Nonmanagerial Employees</h2>
+      </div>
+
+      <!-- Interactive Method Tabs -->
+      <div class="flex flex-wrap gap-2 mb-4" id="trainingTabs">
+        <button type="button" class="tab-btn active px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-800/80 text-xs sm:text-sm font-semibold transition cursor-pointer" data-tab="ojt">1. On-the-Job Training (OJT)</button>
+        <button type="button" class="tab-btn px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-800/80 text-xs sm:text-sm font-semibold transition cursor-pointer" data-tab="apprentice">2. Apprenticeship</button>
+        <button type="button" class="tab-btn px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-800/80 text-xs sm:text-sm font-semibold transition cursor-pointer" data-tab="internship">3. Internship</button>
+        <button type="button" class="tab-btn px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-800/80 text-xs sm:text-sm font-semibold transition cursor-pointer" data-tab="cross">4. Cross-Training</button>
+        <button type="button" class="tab-btn px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-800/80 text-xs sm:text-sm font-semibold transition cursor-pointer" data-tab="etraining">5. E-Training</button>
+      </div>
+
+      <!-- Tab Panels -->
+      <div class="card-3d p-6">
+        <!-- OJT Panel -->
+        <div class="tab-panel" id="panel-ojt">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-xl font-bold text-lime-300">On-the-Job Training (OJT)</h3>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-lime-500/15 border border-lime-400/30 text-lime-300">U.S. Department of Labor 6-Step Method</span>
+          </div>
+          <p class="text-sm text-slate-200 mb-4">Has the worker actually performing the work under the supervision of a competent trainer:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm"><strong class="text-sky-400">Step 1:</strong> <strong>Telling</strong> workers <em>what</em> needs to be done.</div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm"><strong class="text-sky-400">Step 2:</strong> <strong>Telling</strong> them <em>how</em> to do the job.</div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm"><strong class="text-sky-400">Step 3:</strong> <strong>Showing</strong> them <em>how</em> to do the job.</div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm"><strong class="text-sky-400">Step 4:</strong> <strong>Letting</strong> them <em>do</em> the job under the trainer's guidance.</div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm"><strong class="text-sky-400">Step 5:</strong> <strong>Telling</strong>—not showing—them what they did right, what they did wrong, and how to correct the wrong activity.</div>
+            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs sm:text-sm"><strong class="text-sky-400">Step 6:</strong> <strong>Repeating</strong> the process until the learners have mastered the job.</div>
+          </div>
+        </div>
+
+        <!-- Apprenticeship Panel -->
+        <div class="tab-panel hidden" id="panel-apprentice">
+          <h3 class="text-xl font-bold text-emerald-300 mb-2">Apprenticeship Training</h3>
+          <p class="text-base text-slate-200 leading-relaxed">
+            Blends hands-on <strong>On-the-Job Training (OJT)</strong> with structured <strong>learning of theory in the classroom</strong>, ideal for skilled trades and technical roles.
+          </p>
+        </div>
+
+        <!-- Internship Panel -->
+        <div class="tab-panel hidden" id="panel-internship">
+          <h3 class="text-xl font-bold text-teal-300 mb-2">Internship Training</h3>
+          <p class="text-base text-slate-200 leading-relaxed">
+            Combines practical <strong>On-the-Job Training (OJT)</strong> with academic <strong>learning at a cooperating school or college</strong>.
+          </p>
+        </div>
+
+        <!-- Cross-Training Panel -->
+        <div class="tab-panel hidden" id="panel-cross">
+          <h3 class="text-xl font-bold text-indigo-300 mb-2">Cross-Training</h3>
+          <p class="text-base text-slate-200 leading-relaxed">
+            Involves workers <strong>learning many job skills so they are more versatile</strong>, giving small businesses operational flexibility when staffing needs shift.
+          </p>
+        </div>
+
+        <!-- E-Training Panel -->
+        <div class="tab-panel hidden" id="panel-etraining">
+          <h3 class="text-xl font-bold text-purple-300 mb-2">E-Training</h3>
+          <p class="text-base text-slate-200 leading-relaxed">
+            Involves <strong>computer interaction</strong> with either <strong>specific software packages</strong> or <strong>specific online sites</strong> for scalable, self-paced employee training.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: METHODS USED TO DEVELOP MANAGERS (FIGURE 10.5) -->
+    <section class="slide" data-title="Developing Managers">
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="iso-badge mb-1.5">Figure 10.5 • Leadership Growth</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Methods Used to Develop Managers</h2>
+        </div>
+        <span class="text-xs text-sky-300 bg-sky-500/15 border border-sky-400/30 px-3 py-1 rounded-full">Click any 3D card to flip</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Card 1: Coaching -->
+        <div class="flip-container" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front card-3d border-sky-400/35">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 text-xs font-bold">METHOD 01</span>
+                <span class="text-xs text-slate-400">Tap to flip ↻</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-white">Coaching</h3>
+                <p class="text-xs text-sky-300 mt-1">Real-time on-the-job leadership guidance</p>
+              </div>
+              <div class="h-1 w-16 rounded-full bg-sky-400"></div>
+            </div>
+            <div class="flip-back">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-300">Coaching Definition</span>
+              <p class="text-base text-white font-medium leading-relaxed">
+                Managers provide direct guidance to employees <strong>while the employees perform their regular job</strong>.
+              </p>
+              <span class="text-xs text-slate-300">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Planned Progression -->
+        <div class="flip-container" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front card-3d border-emerald-400/35">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold">METHOD 02</span>
+                <span class="text-xs text-slate-400">Tap to flip ↻</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-white">Planned Progression</h3>
+                <p class="text-xs text-emerald-300 mt-1">Structured upward career roadmap</p>
+              </div>
+              <div class="h-1 w-16 rounded-full bg-emerald-400"></div>
+            </div>
+            <div class="flip-back">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">Planned Progression Definition</span>
+              <p class="text-base text-white font-medium leading-relaxed">
+                The company outlines the <strong>path of promotion that lies ahead of a new manager</strong>.
+              </p>
+              <span class="text-xs text-slate-300">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Job Rotation -->
+        <div class="flip-container" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front card-3d border-indigo-400/35">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs font-bold">METHOD 03</span>
+                <span class="text-xs text-slate-400">Tap to flip ↻</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-white">Job Rotation</h3>
+                <p class="text-xs text-indigo-300 mt-1">Cross-functional operational exposure</p>
+              </div>
+              <div class="h-1 w-16 rounded-full bg-indigo-400"></div>
+            </div>
+            <div class="flip-back">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">Job Rotation Definition</span>
+              <p class="text-base text-white font-medium leading-relaxed">
+                Managers learn various operating procedures by <strong>performing many jobs in different areas temporarily</strong>.
+              </p>
+              <span class="text-xs text-slate-300">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Executive Development Program -->
+        <div class="flip-container" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front card-3d border-amber-400/35">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-bold">METHOD 04</span>
+                <span class="text-xs text-slate-400">Tap to flip ↻</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-white">Executive Development Program</h3>
+                <p class="text-xs text-amber-300 mt-1">External advanced leadership training</p>
+              </div>
+              <div class="h-1 w-16 rounded-full bg-amber-400"></div>
+            </div>
+            <div class="flip-back">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Executive Development Program</span>
+              <p class="text-base text-white font-medium leading-relaxed">
+                This program to develop managers is <strong>performed outside the company</strong>.
+              </p>
+              <span class="text-xs text-slate-300">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Controls -->
+  <footer class="fixed bottom-0 left-0 right-0 z-30 bg-slate-950/80 backdrop-blur-md border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
+      <button id="prevBtn" type="button" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none border border-slate-700 text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 transition cursor-pointer">
+        <span>←</span>
+        <span>Previous</span>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div id="dotsContainer" class="flex items-center gap-1.5 overflow-x-auto py-1 px-2 max-w-[55vw]"></div>
+
+      <button id="nextBtn" type="button" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 shadow-lg shadow-sky-500/25 transition cursor-pointer">
+        <span>Next</span>
+        <span>→</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Slide Overview Grid Modal -->
+  <div id="gridModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-lg hidden items-center justify-center p-4">
+    <div class="max-w-5xl w-full bg-slate-900 border border-slate-700 rounded-2xl p-6 max-h-[85vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+        <h3 class="text-lg font-bold text-white">All 14 Slides Overview</h3>
+        <button id="closeGridBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 cursor-pointer">Close (Esc)</button>
+      </div>
+      <div id="gridItems" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+    </div>
+  </div>
+
+  <!-- Share & Download Modal -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-lg hidden items-center justify-center p-4">
+    <div class="max-w-lg w-full bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+        <h3 class="text-lg font-bold text-white">Share or Download Presentation</h3>
+        <button id="closeShareBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 cursor-pointer">Close</button>
+      </div>
+
+      <div class="space-y-4">
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+          <h4 class="text-sm font-bold text-sky-300 mb-1">1. Download Standalone 3D File</h4>
+          <p class="text-xs text-slate-300 mb-3">Download the self-contained HTML presentation to send via WhatsApp/Telegram or upload free to Netlify Drop / GitHub Pages for a permanent public URL.</p>
+          <button id="downloadHtmlBtn" type="button" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs sm:text-sm font-bold text-white shadow-lg transition cursor-pointer">
+            ⬇ Download Presentation (.html)
+          </button>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+          <h4 class="text-sm font-bold text-emerald-300 mb-1">2. Copy Shareable Link</h4>
+          <p class="text-xs text-slate-300 mb-2.5">If hosted online, copy the direct URL to share with your instructor or classmates:</p>
+          <div class="flex gap-2">
+            <input id="shareUrlInput" type="text" readonly class="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 outline-none" />
+            <button id="copyUrlBtn" type="button" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition cursor-pointer shrink-0">
+              Copy Link
+            </button>
+          </div>
+          <p id="copyStatusMsg" class="text-xs text-emerald-400 mt-2 hidden">✓ Link copied to clipboard!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideCounter = document.getElementById('slideCounter');
+      const progressBar = document.getElementById('progressBar');
+      const dotsContainer = document.getElementById('dotsContainer');
+      const gridModal = document.getElementById('gridModal');
+      const gridBtn = document.getElementById('gridBtn');
+      const closeGridBtn = document.getElementById('closeGridBtn');
+      const gridItems = document.getElementById('gridItems');
+      const shareModal = document.getElementById('shareModal');
+      const shareBtn = document.getElementById('shareBtn');
+      const closeShareBtn = document.getElementById('closeShareBtn');
+      const downloadHtmlBtn = document.getElementById('downloadHtmlBtn');
+      const shareUrlInput = document.getElementById('shareUrlInput');
+      const copyUrlBtn = document.getElementById('copyUrlBtn');
+      const copyStatusMsg = document.getElementById('copyStatusMsg');
+
+      // Build navigation dots & grid overview cards
+      slides.forEach((slide, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        dot.className = 'h-2 rounded-full transition-all duration-300 cursor-pointer shrink-0 ' +
+          (index === 0 ? 'w-6 bg-sky-400' : 'w-2 bg-slate-600 hover:bg-slate-400');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'p-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/90 border border-slate-700 text-left transition cursor-pointer';
+        card.innerHTML = `
+          <div class="text-xs font-extrabold text-sky-400 mb-1">Slide ${index + 1}</div>
+          <div class="text-xs sm:text-sm font-semibold text-white line-clamp-2">${slide.dataset.title || 'Slide ' + (index + 1)}</div>
+        `;
+        card.addEventListener('click', () => {
+          goToSlide(index);
+          toggleGrid(false);
+        });
+        gridItems.appendChild(card);
+      });
+
+      function updateUI() {
+        slides.forEach((slide, idx) => {
+          slide.classList.remove('active', 'prev-out', 'next-out');
+          if (idx === currentIndex) {
+            slide.classList.add('active');
+            slide.scrollTop = 0;
+          } else if (idx < currentIndex) {
+            slide.classList.add('prev-out');
+          } else {
+            slide.classList.add('next-out');
+          }
+        });
+
+        // Update dots
+        Array.from(dotsContainer.children).forEach((dot, idx) => {
+          if (idx === currentIndex) {
+            dot.className = 'h-2 w-6 rounded-full bg-sky-400 transition-all duration-300 cursor-pointer shrink-0';
+          } else {
+            dot.className = 'h-2 w-2 rounded-full bg-slate-600 hover:bg-slate-400 transition-all duration-300 cursor-pointer shrink-0';
+          }
+        });
+
+        slideCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+        progressBar.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalSlides - 1;
+      }
+
+      function goToSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        currentIndex = index;
+        updateUI();
+      }
+
+      prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+      nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+      // Keyboard Navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+          if (gridModal.classList.contains('hidden')) {
+            e.preventDefault();
+            goToSlide(currentIndex + 1);
+          }
+        } else if (e.key === 'ArrowLeft') {
+          if (gridModal.classList.contains('hidden')) {
+            e.preventDefault();
+            goToSlide(currentIndex - 1);
+          }
+        } else if (e.key.toLowerCase() === 'g') {
+          toggleGrid(gridModal.classList.contains('hidden'));
+        } else if (e.key === 'Escape') {
+          toggleGrid(false);
+          toggleShare(false);
+        }
+      });
+
+      // Touch Swipe Navigation
+      let touchStartX = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 55) {
+          if (diff > 0) goToSlide(currentIndex + 1);
+          else goToSlide(currentIndex - 1);
+        }
+      }, { passive: true });
+
+      // Grid Overview Modal
+      function toggleGrid(show) {
+        if (show) {
+          gridModal.classList.remove('hidden');
+          gridModal.classList.add('flex');
+        } else {
+          gridModal.classList.add('hidden');
+          gridModal.classList.remove('flex');
+        }
+      }
+
+      gridBtn.addEventListener('click', () => toggleGrid(true));
+      closeGridBtn.addEventListener('click', () => toggleGrid(false));
+      gridModal.addEventListener('click', (e) => {
+        if (e.target === gridModal) toggleGrid(false);
+      });
+
+      // Share & Download Modal
+      function toggleShare(show) {
+        if (show) {
+          shareUrlInput.value = window.location.href;
+          copyStatusMsg.classList.add('hidden');
+          shareModal.classList.remove('hidden');
+          shareModal.classList.add('flex');
+        } else {
+          shareModal.classList.add('hidden');
+          shareModal.classList.remove('flex');
+        }
+      }
+
+      shareBtn.addEventListener('click', () => toggleShare(true));
+      closeShareBtn.addEventListener('click', () => toggleShare(false));
+      shareModal.addEventListener('click', (e) => {
+        if (e.target === shareModal) toggleShare(false);
+      });
+
+      copyUrlBtn.addEventListener('click', () => {
+        shareUrlInput.select();
+        shareUrlInput.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        copyStatusMsg.classList.remove('hidden');
+      });
+
+      downloadHtmlBtn.addEventListener('click', () => {
+        const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Small_Business_Management_Ch10_3D.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // Interactive Tabs on Slide 13
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          const target = btn.dataset.tab;
+          tabPanels.forEach((panel) => {
+            panel.classList.toggle('hidden', panel.id !== `panel-${target}`);
+          });
+        });
+      });
+
+      // 3D Perspective Tilt Effect on Mouse Move
+      document.querySelectorAll('.tilt-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -4.5;
+          const rotateY = ((x - centerX) / centerX) * 4.5;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(6px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+        });
+      });
+
+      updateUI();
+    })();
+  </script>
+</body>
+</html>
